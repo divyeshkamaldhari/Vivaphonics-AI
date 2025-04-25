@@ -1,0 +1,691 @@
+{
+  "info": {
+    "name": "VivaPhonics API",
+    "description": "API collection for testing the VivaPhonics tutoring platform",
+    "_postman_id": "c87ef0a2-1ad2-4c84-8813-e9bf3f699fc1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "description": "Authentication endpoints",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"email\": \"admin@vivaphonics.com\",\n\t\"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/users/login",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "users", "login"]
+            },
+            "description": "Login to get JWT token"
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"name\": \"New User\",\n\t\"email\": \"newuser@example.com\",\n\t\"password\": \"password123\",\n\t\"role\": \"Tutor\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/users/register",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "users", "register"]
+            },
+            "description": "Register a new user"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:5001/api/users/logout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "users", "logout"]
+            },
+            "description": "Logout and clear cookie"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/users/profile",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "users", "profile"]
+            },
+            "description": "Get current user profile"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Students",
+      "description": "Student management endpoints",
+      "item": [
+        {
+          "name": "Get All Students",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/students",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "students"]
+            },
+            "description": "Get all students (Admin or Tutor)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Student by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/students/{{studentId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "students", "{{studentId}}"]
+            },
+            "description": "Get student by ID (Admin or Tutor)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"name\": \"John Student\",\n\t\"email\": \"john@example.com\",\n\t\"phone\": \"+1234567890\",\n\t\"status\": \"Active\",\n\t\"notes\": \"New student\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/students",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "students"]
+            },
+            "description": "Create a new student (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Student",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"name\": \"John Student Updated\",\n\t\"status\": \"Paused\",\n\t\"notes\": \"Updated student notes\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/students/{{studentId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "students", "{{studentId}}"]
+            },
+            "description": "Update a student (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Student",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/students/{{studentId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "students", "{{studentId}}"]
+            },
+            "description": "Delete a student (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Assign Tutor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"tutorId\": \"{{tutorId}}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/students/{{studentId}}/assign-tutor",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "students", "{{studentId}}", "assign-tutor"]
+            },
+            "description": "Assign a tutor to a student (Admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "description": "Session management endpoints",
+      "item": [
+        {
+          "name": "Get All Sessions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/sessions?startDate=2023-01-01&endDate=2023-12-31",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2023-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2023-12-31"
+                },
+                {
+                  "key": "tutor",
+                  "value": "{{tutorId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "student",
+                  "value": "{{studentId}}",
+                  "disabled": true
+                },
+                {
+                  "key": "status",
+                  "value": "Scheduled",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "Get all sessions with optional filters"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Session by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/sessions/{{sessionId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions", "{{sessionId}}"]
+            },
+            "description": "Get a single session by ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"student\": \"{{studentId}}\",\n\t\"tutor\": \"{{tutorId}}\",\n\t\"date\": \"2023-06-15\",\n\t\"startTime\": \"14:00\",\n\t\"endTime\": \"15:30\",\n\t\"subject\": \"Mathematics\",\n\t\"notes\": \"Algebra review\",\n\t\"isRecurring\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/sessions",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions"]
+            },
+            "description": "Create a new session (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Recurring Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"student\": \"{{studentId}}\",\n\t\"tutor\": \"{{tutorId}}\",\n\t\"date\": \"2023-06-15\",\n\t\"startTime\": \"14:00\",\n\t\"endTime\": \"15:30\",\n\t\"subject\": \"Mathematics\",\n\t\"notes\": \"Algebra review\",\n\t\"isRecurring\": true,\n\t\"recurringPattern\": {\n\t\t\"frequency\": \"weekly\",\n\t\t\"endDate\": \"2023-07-30\",\n\t\t\"daysOfWeek\": [1, 3, 5]\n\t}\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/sessions",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions"]
+            },
+            "description": "Create recurring sessions (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Session",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"date\": \"2023-06-16\",\n\t\"startTime\": \"15:00\",\n\t\"endTime\": \"16:30\",\n\t\"notes\": \"Updated session notes\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/sessions/{{sessionId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions", "{{sessionId}}"]
+            },
+            "description": "Update a session (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel Session",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"reason\": \"Student unavailable\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/sessions/{{sessionId}}",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions", "{{sessionId}}"]
+            },
+            "description": "Cancel a session (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Session Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"status\": \"Completed\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/sessions/{{sessionId}}/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "sessions", "{{sessionId}}", "status"]
+            },
+            "description": "Update session status"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "description": "Payment management endpoints",
+      "item": [
+        {
+          "name": "Calculate Payments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/payments/calculate?startDate=2023-01-01&endDate=2023-12-31",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "payments", "calculate"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2023-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2023-12-31"
+                }
+              ]
+            },
+            "description": "Calculate payments for a date range (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Generate Payment Report",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/payments/report?startDate=2023-01-01&endDate=2023-12-31",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "payments", "report"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2023-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2023-12-31"
+                }
+              ]
+            },
+            "description": "Generate CSV payment report (Admin only)"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tutor Payment History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/payments/tutor/{{tutorId}}?startDate=2023-01-01&endDate=2023-12-31",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "payments", "tutor", "{{tutorId}}"],
+              "query": [
+                {
+                  "key": "startDate",
+                  "value": "2023-01-01"
+                },
+                {
+                  "key": "endDate",
+                  "value": "2023-12-31"
+                }
+              ]
+            },
+            "description": "Get payment history for a tutor"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Tutor Rate",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n\t\"hourlyRate\": 35.50\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5001/api/payments/tutor/{{tutorId}}/rate",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "payments", "tutor", "{{tutorId}}", "rate"]
+            },
+            "description": "Update tutor hourly rate (Admin only)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "description": "Dashboard data endpoints",
+      "item": [
+        {
+          "name": "Get Admin Dashboard Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/dashboard/admin",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "dashboard", "admin"]
+            },
+            "description": "Get admin dashboard data"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Tutor Dashboard Data",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:5001/api/dashboard/tutor",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5001",
+              "path": ["api", "dashboard", "tutor"]
+            },
+            "description": "Get tutor dashboard data"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "your_jwt_token",
+      "type": "string"
+    },
+    {
+      "key": "tutorId",
+      "value": "tutor_id",
+      "type": "string"
+    },
+    {
+      "key": "studentId",
+      "value": "student_id",
+      "type": "string"
+    },
+    {
+      "key": "sessionId",
+      "value": "session_id",
+      "type": "string"
+    }
+  ]
+} 
